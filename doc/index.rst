@@ -14,7 +14,10 @@ If you'd like to create and administer your own Binder deployment, see the
 documentation guides you through creating a cluster, deploying BinderHub, and
 administering a BinderHub deployment.
 
+.. contents::
+
 .. toctree::
+   :hidden:
 
    dockerfile.rst
 
@@ -66,6 +69,60 @@ connected to this repository.
    to build a new repository, the process of connecting to the live
    computational environment is much faster.
 
+Using Binder with ...
+---------------------
+
+Python
+``````
+
+Add a ``requirements.txt``, **or** an ``environement.yml`` file, and we take care of the rest.
+See `repo2docker <https://repo2docker.readthedocs.org>`_ documentation for more information
+
+Julia
+`````
+
+Add a ``REQUIRE`` file, and we take care of the rest.
+See `repo2docker <https://repo2docker.readthedocs.org>`_ documentation for more information
+
+R
+``
+
+R integration is in process (but working !), get in touch with us, we want to
+make sure it make sens for R user before properly making it official !
+
+Other languages
+```````````````
+
+Binder should have no issue with a custom language, though you need to teach it
+how to recognize your languages and how to to install dependencies. Binder rely
+on `repo2docker <https://repo2docker.readthedocs.org>`_ for that; and we don't
+invent our conventions we stick to what languages are already doing.
+
+Please head there to `repo2docker <https://repo2docker.readthedocs.org>`_ and
+open an issue there; one repo2docker support your language, binder should as
+well.
+
+
+R and Python / Python and Julia / ....
+``````````````````````````````````````
+
+If you want to use more than one language in the same binder, simply list the
+required files for all the languages you desire. Binder does not do anything special. 
+
+For example if you need Julia and Python you can list a ``requirements.txt``
+file, and a ``REQUIRE``; binder will install a kernel for both. If furthermore
+you need cross language communication, you will for example list ``pyjulia`` as
+one of the dependencies in ``requirements.txt``. 
+
+If you want to have R and Python, you may decide to use a single
+``environment.yml`` file, to use conda both with the ``conda-forge`` and the
+``r`` channel. Same as above if you need cross language communication you may
+install the ``rpy2`` package.
+
+The `binder-example <https://github.com/binder-examples/>`_ organisations give many
+examples of the possibilities.
+
+
 How do I generate a Binder link to share?
 -----------------------------------------
 
@@ -115,7 +172,7 @@ Using Dockerfiles
 
 Ensuring reproducibility with Dockerfiles comes with its own set of challenges.
 For more information and best-practices when using Dockerfiles for Binder,
-see :ref:`dockerfiles`.
+see :ref:`dockerfile`.
 
 What can I do if ``mybinder.org`` does not meet my needs?
 ---------------------------------------------------------
